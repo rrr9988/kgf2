@@ -1,0 +1,40 @@
+#perceptron convergence theorem
+import numpy as np
+class Perceptron:
+  def __init__(self,input_size,learning_rate=0.01,max_epochs=1000):
+    self.weights=np.random.randn(input_size)
+    self.bias=np.random.rand()
+    self.learning_rate=learning_rate
+    self.max_epochs=max_epochs
+
+  def predict(self,inputs):
+    weighted_sum=np.dot(inputs,self.weights)+self.bias
+    return 1 if weighted_sum>0 else 0
+
+  def train(self,training_data,labels):
+    for epoch in range(self.max_epochs):
+      errors=0
+      for inputs, label in zip(training_data,labels):
+        prediction=self.predict(inputs)
+        update=self.learning_rate*(label-prediction)
+        self.weights=self.weights+update*inputs
+        self.bias=self.bias+update
+        errors=errors+int(update!=0)
+      if errors==0:
+        print(f"training converged after {epoch+1} epochs")
+        break
+
+    if errors>0:
+      print(f"Training did not converged after{self.epochs}epochs")
+
+input_size=2
+perceptron=Perceptron(input_size)
+training_data=np.array([[0,0],[0,1],[1,0],[1,1]])
+labels=np.array([0,0,0,1])
+perceptron.train(training_data,labels)
+test_inputs=np.array([[0,0],[0,1],[1,0],[1,1]])
+predictions=[perceptron.predict(inputs) for inputs in test_inputs]
+print("Test prediction:",predictions)
+
+
+
