@@ -1,0 +1,26 @@
+#basic neuron model
+
+import numpy as np
+class neuron:
+  def __init__(self,input_size,input_values):
+    self.weights=np.random.rand(input_size)
+    self.bias=np.random.rand()
+    self.inputs=input_values
+    self.output=0
+    self.calculate()
+  def sigmoid(self,a):
+    return 1/(1+np.exp(-a))
+
+  def calculate(self):
+    weighted_sum=np.dot(self.weights,self.inputs)+self.bias
+    self.output=self.sigmoid(weighted_sum)
+    return self.output
+
+  def display(self):
+    print("input values:",self.inputs)
+    print("weigth values:",self.weights)
+    print("Bias:",self.bias)
+    print("Output:",self.output)
+input_values=np.array([0.5,0.8,1.2])
+n1=neuron(3,input_values)
+n1.display()
